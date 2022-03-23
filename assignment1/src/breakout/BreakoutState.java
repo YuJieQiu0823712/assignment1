@@ -56,16 +56,11 @@ public class BreakoutState {
 	 * @post | getBlocks() == blocks 
 	 * @post | getBottomRight() == bottomRight
 	 * @post | getPaddle() == paddle
-	 * @post some element in the balls equals ball.
-//	 *   | Arrays.stream(balls,0,balls.length - 1).anyMatch(e -> e == ball) //?
-	 * @post some element in the blocks equals block.
-//	 *   | Arrays.stream(blocks,0,blocks.length - 1).anyMatch(e -> e == block) //?
 	 * @throws IllegalArgumentException
 	 *   | balls == null | blocks == null | paddle == null | bottomRight == null
 	 * @throw IllegalArgumentException
 	 *   | Arrays.stream(balls).anyMatch(e -> e == null)
 	 *   | Arrays.stream(blocks).anyMatch(e -> e == null)
-//	 * @inspect | balls | blocks | paddle | bottomRight //no need @inspect? because having getter
 	 */
 
 	public BreakoutState(BallState[] balls, BlockState[] blocks, Point bottomRight,PaddleState paddle ) {

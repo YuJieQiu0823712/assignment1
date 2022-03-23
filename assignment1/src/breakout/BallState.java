@@ -8,7 +8,7 @@ package breakout;
  * @invar | getTl() !=null
  * @invar | getTl() !=null
  * @invar | getBr() !=null
- * @invar | getSize() == Math.round((Math.PI*((getBr().getY()-getTl().getY())*Math.sqrt(2)/2)*((getBr().getY()-getTl().getY())*Math.sqrt(2)/2)))
+ * @invar | getSize() == (int) Math.round((Math.PI*(((getBr().getY()-getTl().getY())/2)*((getBr().getY()-getTl().getY())/2))))
  */
 
 public class BallState {
@@ -73,17 +73,16 @@ public class BallState {
 	}
 
 	public Point getBr() {
-		return br;
+		return br;        
 	}
 
 	/**
-	 * @post | result == Math.round((Math.PI*((getBr().getY()-getTl().getY())*Math.sqrt(2)/2)*((getBr().getY()-getTl().getY())*Math.sqrt(2)/2)))
-	 * @create | result
+	 * @post | result == (int) Math.round((Math.PI*(((getBr().getY()-getTl().getY())/2)*((getBr().getY()-getTl().getY())/2))))
 	 */
 	
 	public int getSize() {
-		double diameter = (br.getY()-tl.getY())*Math.sqrt(2);
-		System.out.println(Math.PI*(diameter/2)*(diameter/2));
+		int diameter = (br.getY()-tl.getY());
+//		System.out.println(Math.PI*(diameter/2)*(diameter/2));
 		return (int) Math.round((Math.PI*(diameter/2)*(diameter/2)));
 
 	}

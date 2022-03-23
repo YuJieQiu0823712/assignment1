@@ -18,7 +18,7 @@ class BallStateTest {
 		assertEquals(new Vector(5,7), myBallState.getVelocity());
 		assertEquals(new Point(0,0),myBallState.getTl());
 		assertEquals(new Point(2,2),myBallState.getBr());
-		assertEquals(6,myBallState.getSize());
+		assertEquals(3,myBallState.getSize());
 		
 	}
 

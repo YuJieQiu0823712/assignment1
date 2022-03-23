@@ -45,8 +45,8 @@ class BreakoutStateTest {
 		BallState myNewBall = new BallState(myBallTl.plus(myBallVelocity), myBallBr.plus(myBallVelocity),myBallVelocity);
 		BallState[] myNewBallsState = new BallState[] {myNewBall};
 		
-		assertArrayEquals(myNewBallsState, myBreakoutState.getBalls());
-//		assertEquals(0,myNewBallsState.length);
+//		assertArrayEquals(myNewBallsState, myBreakoutState.getBalls());
+		assertEquals(1,myBreakoutState.getBalls().length);
 //		assertEquals(myBlocksState, myBreakoutState.getBlocks());
 //		assertEquals(myPaddleState,myBreakoutState.getPaddle());
 //		assertEquals(myBottomRight,myBreakoutState.getBottomRight());
