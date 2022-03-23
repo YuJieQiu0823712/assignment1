@@ -8,7 +8,8 @@ package breakout;
  * @invar | getTl() !=null
  * @invar | getTl() !=null
  * @invar | getBr() !=null
- * @invar | getSize() == (int) Math.round((Math.PI*(((getBr().getY()-getTl().getY())/2)*((getBr().getY()-getTl().getY())/2))))
+ * @invar | getSize() == (int) Math.round((Math.PI*(getRadius())*(getRadius())))
+ * @invar | getRadius() == (getBr().getY()-getTl().getY())/2
  */
 
 public class BallState {
@@ -77,16 +78,21 @@ public class BallState {
 	}
 
 	/**
-	 * @post | result == (int) Math.round((Math.PI*(((getBr().getY()-getTl().getY())/2)*((getBr().getY()-getTl().getY())/2))))
+	 * @post | result == (int) Math.round((Math.PI*(getRadius())*(getRadius())))
 	 */
 	
 	public int getSize() {
-		int diameter = (br.getY()-tl.getY());
-		return (int) Math.round((Math.PI*(diameter/2)*(diameter/2)));
+		return (int) Math.round((Math.PI*(getRadius())*(getRadius())));
 
 	}
 
-	
+	/**
+	 * @post | result == (getBr().getY()-getTl().getY())/2
+	 */
+	public int getRadius() {
+		int radius = (br.getY()-tl.getY())/2;
+		return radius;
+	}
 
 
 

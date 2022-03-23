@@ -19,6 +19,7 @@ class BallStateTest {
 		assertEquals(new Point(0,0),myBallState.getTl());
 		assertEquals(new Point(2,2),myBallState.getBr());
 		assertEquals(3,myBallState.getSize());
+		assertEquals(1,myBallState.getRadius());
 		
 	}
 

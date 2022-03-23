@@ -139,8 +139,8 @@ public class BreakoutState {
 					i++;
 					blockstl.add(block.getTl());
 					Vector balltoblockvector= new Vector((blockRX+blockLX)/2-ball.getCenter().getX(),(blockBY+blockTY)/2-ball.getCenter().getY());
-					
-					if (ballLX <= blockRX&&ballRX >= blockRX|| ballRX >= blockLX&&ballLX <= blockLX) {
+					                                 //RX->LX
+					if (ballLX <= blockRX&&ballRX >= blockRX || ballRX >= blockLX&&ballLX <= blockLX) {
 						ballreflectX=true;
 					}
 					if (blockBY >= ballTY&&blockBY <= ballBY || blockTY <= ballBY&&blockTY >= ballTY) {
@@ -232,6 +232,8 @@ public class BreakoutState {
 	 */
 	// It is not necessary to specify the precise behavior
 	public void tick(int paddleDir) {
+		
+		
 
 		ArrayList<BallState> newballs2 = new ArrayList<BallState>();
 		for (BallState ball: balls) {
