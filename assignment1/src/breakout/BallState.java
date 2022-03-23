@@ -81,8 +81,7 @@ public class BallState {
 	 */
 	
 	public int getSize() {
-		int diameter = (br.getY()-tl.getY());
-//		System.out.println(Math.PI*(diameter/2)*(diameter/2));
+		int diameter = (this.br.getY()-this.tl.getY());
 		return (int) Math.round((Math.PI*(diameter/2)*(diameter/2)));
 
 	}
