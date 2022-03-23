@@ -58,7 +58,7 @@ public class BallState {
 	 * @create | result
 	 */
 	public Point getCenter() {
-		Point center = new Point((this.tl.getX()+this.br.getX())/2,(this.tl.getY()+this.br.getY())/2);
+		Point center = new Point((tl.getX()+br.getX())/2,(tl.getY()+br.getY())/2);
 		return center;
 	}
 	
@@ -81,7 +81,7 @@ public class BallState {
 	 */
 	
 	public int getSize() {
-		int diameter = (this.br.getY()-this.tl.getY());
+		int diameter = (br.getY()-tl.getY());
 		return (int) Math.round((Math.PI*(diameter/2)*(diameter/2)));
 
 	}
