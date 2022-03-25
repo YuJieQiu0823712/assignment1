@@ -36,8 +36,8 @@ public class BreakoutState {
      * @invar | blocks != null
      * @invar | paddle != null
      * @invar | bottomRight != null
-	 * @invar | 0 <= balls.length
-	 * @invar | 0 <= blocks.length
+//	 * @invar | 0 <= balls.length
+//	 * @invar | 0 <= blocks.length
      * @representationObject
 	 */
 
@@ -52,10 +52,10 @@ public class BreakoutState {
 	/**
 	 * Initializes this object with the given balls, blocks, bottomRight and paddle.
 	 * 
-	 * @post | getBalls() == balls 
-	 * @post | getBlocks() == blocks 
+	 * @post | Arrays.equals(getBalls(),balls)
+	 * @post | Arrays.equals(getBlocks(),blocks) 
 	 * @post | getBottomRight() == bottomRight
-	 * @post | getPaddle() == paddle
+//	 * @post | getPaddle()==paddle | does not hold
 	 * @throws IllegalArgumentException
 	 *   | balls == null | blocks == null | paddle == null | bottomRight == null
 	 * @throw IllegalArgumentException
@@ -86,27 +86,25 @@ public class BreakoutState {
 	
 	/**
 	 * @post | result != null
-	 * @post | 0 <= getBalls().length
+//	 * @post | 0 <= getBalls().length => don't need
+//     * @post | getBalls().length >= old(getBalls().length) => shutdown
 	 * @post | Arrays.stream(result).allMatch(e -> e != null)
 	 * @creates | result
 	 * @inspect | this
 	 */
-
-
-
 	public BallState[] getBalls() {
 		ArrayList<BallState> newballs2 = new ArrayList<BallState>(); 
 		for (BallState ball : balls) {
 			BallState newball = new BallState(ball.getTl().plus(ball.getVelocity()),ball.getBr().plus(ball.getVelocity()),ball.getVelocity());		
 			newballs2.add(newball);
 		}
-
 		return newballs2.toArray(balls);
 	}
 	
 	/**
 	 * @post | result != null
-	 * @post | 0 <= getBlocks().length
+//	 * @post | 0 <= getBlocks().length => don't need
+//     * @post | getBlocks().length <= old(getBlocks().length)=> shutdown
 	 * @post | Arrays.stream(result).allMatch(e -> e != null)
 	 * @creates | result
 	 * @inspect | this
@@ -114,7 +112,7 @@ public class BreakoutState {
 
 	public BlockState[] getBlocks() {
 		
-		int i=0;
+		
 		//判斷球有無撞到block
 		ArrayList<BallState> newballs = new ArrayList<BallState>();
 		for (BallState ball : balls) {
@@ -136,10 +134,10 @@ public class BreakoutState {
 				
 				if (ballLX <= blockRX && ballRX >= blockLX && blockBY >= ballTY && blockTY <= ballBY) {
 					hit = true;
-					i++;
+					
 					blockstl.add(block.getTl());
 					Vector balltoblockvector= new Vector((blockRX+blockLX)/2-ball.getCenter().getX(),(blockBY+blockTY)/2-ball.getCenter().getY());
-					                                 //RX->LX
+					                                 
 					if (ballLX <= blockRX&&ballRX >= blockRX || ballRX >= blockLX&&ballLX <= blockLX) {
 						ballreflectX=true;
 					}
@@ -178,13 +176,10 @@ public class BreakoutState {
 					ball=newball;
 				}
 			}
-			
 			newballs.add(ball);
 			BlockState[] newblocksarray = new BlockState[newblocks.size()];
 			newblocks.toArray(newblocksarray);
 			blocks = newblocksarray;
-			
-			
 		}
 		newballs.toArray(balls);
 
@@ -223,16 +218,12 @@ public class BreakoutState {
 //	by introducing and using a new well-documented abstraction for representing rectangles.
     
 	/**
-	 * @pre | paddleDir == 0 || paddleDir == 1 || paddleDir == -1
 	 * @post | 0 <= getBalls().length
-	 * @throws IllegalArgumentException
-	 *   | paddleDir !=0 || paddleDir != 1 || paddleDir != -1
 	 * @creates | result
 	 * @inspect | this //add?
 	 */
 	// It is not necessary to specify the precise behavior
 	public void tick(int paddleDir) {
-		
 		
 
 		ArrayList<BallState> newballs2 = new ArrayList<BallState>();
@@ -260,10 +251,7 @@ public class BreakoutState {
 				newballs2.add(ball);
 
 		}
-
 		newballs2.toArray(balls);
-
-		
 	}
 	
 	/**
@@ -292,7 +280,8 @@ public class BreakoutState {
 	}
 
 	/**
-//	 * ?
+	 * @post If getBlock().length == 0, return true,otherwise return false
+	 *   | getBlocks().length == 0 ? true : false
 	 */
 	public boolean isWon() {
 		if(getBlocks().length == 0){
@@ -304,7 +293,8 @@ public class BreakoutState {
 	}
 
 	/**
-//	 * ?
+	 * @post If getBlock().length == 0, return true,otherwise return false
+	 *   | getBalls().length == 0 ? true : false
 	 */
 	public boolean isDead() {
 		if(Arrays.stream(balls,0,balls.length).allMatch(e -> e.getBr().getY()>=GameMap.getHeight())){

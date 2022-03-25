@@ -70,24 +70,23 @@ public class BallState {
 	
 
 	public Point getTl() {
-		return tl;
+		return this.tl;
 	}
 
 	public Point getBr() {
-		return br;        
+		return this.br;        
 	}
 
 	/**
-	 * @post | result == (int) Math.round((Math.PI*(getRadius())*(getRadius())))
+	 * @create | result 
 	 */
 	
 	public int getSize() {
 		return (int) Math.round((Math.PI*(getRadius())*(getRadius())));
-
 	}
 
 	/**
-	 * @post | result == (getBr().getY()-getTl().getY())/2
+	 * @create | result
 	 */
 	public int getRadius() {
 		int radius = (br.getY()-tl.getY())/2;
