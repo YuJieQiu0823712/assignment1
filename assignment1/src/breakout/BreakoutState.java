@@ -22,8 +22,6 @@ import java.util.Arrays;
  * @invar | getBlocks() != null
  * @invar | getPaddle() != null
  * @invar | getBottomRight() != null
- * @invar | 0 <= getBalls().length
- * @invar | 0 <= getBlocks().length
  *
  */
 
@@ -36,8 +34,6 @@ public class BreakoutState {
      * @invar | blocks != null
      * @invar | paddle != null
      * @invar | bottomRight != null
-//	 * @invar | 0 <= balls.length
-//	 * @invar | 0 <= blocks.length
      * @representationObject
 	 */
 
@@ -56,6 +52,7 @@ public class BreakoutState {
 	 * @post | Arrays.equals(getBlocks(),blocks) 
 	 * @post | getBottomRight() == bottomRight
 //	 * @post | getPaddle()==paddle | does not hold
+     * @post | getPaddle().equals(paddle)
 	 * @throws IllegalArgumentException
 	 *   | balls == null | blocks == null | paddle == null | bottomRight == null
 	 * @throw IllegalArgumentException
@@ -86,8 +83,6 @@ public class BreakoutState {
 	
 	/**
 	 * @post | result != null
-//	 * @post | 0 <= getBalls().length => don't need
-//     * @post | getBalls().length >= old(getBalls().length) => shutdown
 	 * @post | Arrays.stream(result).allMatch(e -> e != null)
 	 * @creates | result
 	 * @inspect | this
@@ -103,8 +98,6 @@ public class BreakoutState {
 	
 	/**
 	 * @post | result != null
-//	 * @post | 0 <= getBlocks().length => don't need
-//     * @post | getBlocks().length <= old(getBlocks().length)=> shutdown
 	 * @post | Arrays.stream(result).allMatch(e -> e != null)
 	 * @creates | result
 	 * @inspect | this
