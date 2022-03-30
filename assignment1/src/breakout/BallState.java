@@ -6,7 +6,6 @@ package breakout;
  * @invar | getCenter() !=null
  * @invar | getVelocity() !=null
  * @invar | getTl() !=null
- * @invar | getTl() !=null
  * @invar | getBr() !=null
  * @invar | getSize() == (int) Math.round((Math.PI*(getRadius())*(getRadius())))
  * @invar | getRadius() == (getBr().getY()-getTl().getY())/2
@@ -60,21 +59,21 @@ public class BallState {
 	 */
 	public Point getCenter() {
 		Point center = new Point((tl.getX()+br.getX())/2,(tl.getY()+br.getY())/2);
-		return center;
+		return center; // no this?
 	}
 	
 	
 	public Vector getVelocity() {
-		return this.velocity;
+		return velocity;//no this?
 	}
 	
 
 	public Point getTl() {
-		return this.tl;
+		return tl;
 	}
 
 	public Point getBr() {
-		return this.br;        
+		return br;        
 	}
 
 	/**

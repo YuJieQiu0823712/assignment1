@@ -20,7 +20,7 @@ class BreakoutStateTest {
 		Vector myBallVelocity2 = new Vector(5,7);
 		BallState myBallState2 = new BallState(myBallTl2, myBallBr2, myBallVelocity2);
 		
-		BallState[] myBallsState = new BallState[] {myBallState,myBallState2};
+		BallState[] myBallsState = new BallState[] {myBallState};
 		
 		// block
 		Point myBlockTl = new Point(0,0);
@@ -36,7 +36,7 @@ class BreakoutStateTest {
 //		//paddle
 		Point myPaddleTl = new Point(6,6);
 		Point myPaddleBr = new Point(8,7);
-		int myPaddleVelocity = 1;
+		int myPaddleVelocity = 0;
 		PaddleState myPaddleState = new PaddleState(myPaddleTl, myPaddleBr, myPaddleVelocity);
 		
 //		// bottomRight
@@ -46,8 +46,8 @@ class BreakoutStateTest {
 		
 		// new Balls
 		BallState myNewBall = new BallState(myBallTl.plus(myBallVelocity), myBallBr.plus(myBallVelocity),myBallVelocity);
-		BallState myNewBall2 = new BallState(myBallTl2.plus(myBallVelocity2), myBallBr2.plus(myBallVelocity2),myBallVelocity2);
-		BallState[] myNewBallsState = new BallState[] {myNewBall,myNewBall2};
+//		BallState myNewBall2 = new BallState(myBallTl2.plus(myBallVelocity2), myBallBr2.plus(myBallVelocity2),myBallVelocity2);
+		BallState[] myNewBallsState = new BallState[] {myNewBall};
 		
 		
 		BreakoutState myBreakoutState = new BreakoutState(myBallsState,myBlocksState,myBottomRight, myPaddleState);
