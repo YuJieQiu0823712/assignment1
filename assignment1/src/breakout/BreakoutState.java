@@ -51,19 +51,16 @@ public class BreakoutState {
 	 * @post | Arrays.equals(getBalls(),balls)
 	 * @post | Arrays.equals(getBlocks(),blocks) 
 	 * @post | getBottomRight().equals(bottomRight)
-     * @post | getPaddle().equals(paddle)
-//     * @post | getPaddle().equals(copyOf(paddle))
-//     * @post | result.equals(new IntPoint(getRight(), getBottom()))
-//   * @post some element in the balls equals ball.
-//	 *   | Arrays.stream(balls,0,balls.length - 1).anyMatch(e -> e == ball) //?
-//	 * @post some element in the blocks equals block.
-//	 *   | Arrays.stream(blocks,0,blocks.length - 1).anyMatch(e -> e == block) //?
+	 * @post | !(getPaddle().equals(paddle))
+     * @post some element in the balls equals ball.
+	 *   | Arrays.stream(balls,0,balls.length - 1).allMatch(e -> e != null) 
+ 	 * @post some element in the blocks equals block.
+     *   | Arrays.stream(blocks,0,blocks.length - 1).allMatch(e -> e != null)
 	 * @throws IllegalArgumentException
 	 *   | balls == null | blocks == null | paddle == null | bottomRight == null
 	 * @throw IllegalArgumentException
 	 *   | Arrays.stream(balls).anyMatch(e -> e == null)
 	 *   | Arrays.stream(blocks).anyMatch(e -> e == null)
-	 * @inspect | balls | blocks | paddle | bottomRight 
 	 */
 
 	public BreakoutState(BallState[] balls, BlockState[] blocks, Point bottomRight,PaddleState paddle ) {
@@ -89,10 +86,9 @@ public class BreakoutState {
 	
 	/**
 	 * @post | result != null
-	 * @post | 0 <= result.length//add
+	 * @post | 0 <= result.length
 	 * @post | Arrays.stream(result).allMatch(e -> e != null)
 	 * @creates | result
-	 * @inspect | this
 	 */
 	public BallState[] getBalls() {
 		ArrayList<BallState> newballs2 = new ArrayList<BallState>(); 
@@ -108,10 +104,9 @@ public class BreakoutState {
 	
 	/**
 	 * @post | result != null
-	 * @post | 0 <= result.length//add
+	 * @post | 0 <= result.length
 	 * @post | Arrays.stream(result).allMatch(e -> e != null)
 	 * @creates | result
-	 * @inspect | this
 	 */
 
 	public BlockState[] getBlocks() {
@@ -159,6 +154,7 @@ public class BreakoutState {
 				}
 
 			} 
+			
 			if(blockstl.size() == 1||blockstl.size() == 3) {
 				if(ballreflectY) {
 					BallState newball = new BallState (ball.getTl(),ball.getBr(),ball.getVelocity().mirrorOver(Vector.DOWN));
@@ -169,6 +165,7 @@ public class BreakoutState {
 					ball=newball;
 				}
 			}
+			
 			if(blockstl.size() == 2) {
 				if(blockstl.get(0).getY() == blockstl.get(1).getY()) {
 					BallState newball = new BallState (ball.getTl(),ball.getBr(),ball.getVelocity().mirrorOver(Vector.DOWN));
@@ -192,8 +189,6 @@ public class BreakoutState {
 	/**
 	 * @post | result != null
 	 * @creates | result
-//	 * @post | result.equals(new Point(getRight(), getBottom())) //add this
-	 * @inspect | this
 	 */
 
 	public PaddleState getPaddle() {
@@ -207,7 +202,7 @@ public class BreakoutState {
 	 */
 
 	public Point getBottomRight() {
-		return bottomRight;// no this?
+		return bottomRight;
 	}
 	
 //	This method must do the following (in this order):
@@ -224,7 +219,7 @@ public class BreakoutState {
 	/**
 	 * @post | 0 <= getBalls().length
 	 * @creates | result
-	 * @inspect | this //add?
+	 * @inspect | this
 	 */
 	// It is not necessary to specify the precise behavior
 	public void tick(int paddleDir) {
@@ -240,19 +235,19 @@ public class BreakoutState {
 			int ballBY=ball.getBr().getY();
 			int ballLX=ball.getTl().getX();
 			int ballRX=ball.getBr().getX();
-			int blockTY=paddle.getTl().getY();
-			int blockBY=paddle.getBr().getY();
-			int blockLX=paddle.getTl().getX();
-			int blockRX=paddle.getBr().getX();
+			int paddleTY=paddle.getTl().getY();
+			int paddleBY=paddle.getBr().getY();
+			int paddleLX=paddle.getTl().getX();
+			int paddleRX=paddle.getBr().getX();
 
 
-			if (ballLX <= blockRX && ballRX >= blockLX && blockTY <= ballBY && blockBY >= ballTY) {
-				Vector balltoblockvector= new Vector((blockRX+blockLX)/2-ball.getCenter().getX(),(blockBY+blockTY)/2-ball.getCenter().getY());
+			if (ballLX <= paddleRX && ballRX >= paddleLX && paddleTY <= ballBY && paddleBY >= ballTY) {
+				Vector balltoblockvector= new Vector((paddleRX+paddleLX)/2-ball.getCenter().getX(),(paddleBY+paddleTY)/2-ball.getCenter().getY());
 
-				if (ballLX <= blockRX && ballRX >= blockRX || ballRX >= blockLX && ballLX <= blockLX) {
+				if (ballLX <= paddleRX && ballRX >= paddleRX || ballRX >= paddleLX && ballLX <= paddleLX) {
 					ballreflectX=true;
 				}
-				if (blockTY <= ballBY && blockTY >= ballTY) {
+				if (paddleTY <= ballBY && paddleTY >= ballTY) {
 					ballreflectY=true;
 				}
 				if(balltoblockvector.getX()*ball.getVelocity().getX()<0 && ballreflectX && ballreflectY) {
@@ -265,7 +260,7 @@ public class BreakoutState {
 				// ball touch paddle
 				if(ballreflectY&&!ballreflectX) {
 					BallState newball = new BallState (ball.getTl(),ball.getBr(),new Vector (ball.getVelocity().getX()+paddle.getVelocity()/5,-ball.getVelocity().getY()));
-					ball=newball;                          //?
+					ball=newball;                         
 				}
 				if(ballreflectY&&ballreflectX) {
 					BallState newball = new BallState (ball.getTl(),ball.getBr(),new Vector (-ball.getVelocity().getX()+paddle.getVelocity()/5,-ball.getVelocity().getY()));
@@ -273,7 +268,7 @@ public class BreakoutState {
 				}
 				if(ballreflectX&&!ballreflectY) {
 					BallState newball = new BallState(ball.getTl().plus(new Vector(paddle.getVelocity(),0)),ball.getBr().plus(new Vector(paddle.getVelocity(),0)),new Vector (-ball.getVelocity().getX()+paddle.getVelocity(),ball.getVelocity().getY()));		
-					ball=newball;				            //?			
+					ball=newball;				            		
 				}
 
 			}
@@ -304,14 +299,14 @@ public class BreakoutState {
 	
 	/**
 	 * @creates | result
-	 * @inspects | this //add?
+	 * @inspect | this
 	 */
 	// It is not necessary to specify the precise behavior
 	public void movePaddleRight() {
 		int ballsqueezed=0;
 		for (BallState ball : balls) {
-			if(paddle.getBr().getX()+(ball.getBr().getX()-ball.getTl().getX()) >= BOUNDARY 
-					&& paddle.getTl().getY()-(ball.getCenter().getX()-ball.getTl().getX())<=ball.getTl().getY() //?no need
+			if(paddle.getBr().getX()+(ball.getBr().getX()-ball.getTl().getX()) >= BOUNDARY
+					&& paddle.getTl().getY()-(ball.getCenter().getX()-ball.getTl().getX())<=ball.getTl().getY() //?no need y axis
 					&& paddle.getBr().getY()+(ball.getCenter().getX()-ball.getTl().getX())>=ball.getBr().getY()) {//?
 			ballsqueezed=1;
 			}
@@ -322,9 +317,11 @@ public class BreakoutState {
 		}
 	}
 	
+	
+	
 	/**
 	 * @creates | result
-	 * @inspects | this //add?
+	 * @inspect | this
 	 */
 	// It is not necessary to specify the precise behavior
 	public void movePaddleLeft() {
@@ -338,10 +335,11 @@ public class BreakoutState {
 
 		if (paddle.getTl().getX() >= 0&&ballsqueezed==0) {
 			PaddleState newpaddle = new PaddleState(paddle.getTl().plus(new Vector(-PADDLE_VELOCITY,0)),paddle.getBr().plus(new Vector(-PADDLE_VELOCITY,0)),0);
-			paddle = newpaddle;}
+			paddle = newpaddle;
+			}
 		
 				
-			}
+		}
 		
 	}
 

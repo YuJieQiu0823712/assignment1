@@ -17,8 +17,6 @@ public class BlockState {
 	/**
 	 * Representation invariants:
 	 * 
-//	 * @invar | tl.getX() <= br.getX()
-//	 * @invar | tl.getY() <= br.getY()
 	 * @invar | tl != null
      * @invar | br != null
 	 */
@@ -30,7 +28,6 @@ public class BlockState {
 	 * 
 	 * @pre | tl != null
 	 * @pre | br != null
-	 * 
 	 * @post | getTl() == tl
 	 * @post | getBr() == br
 	 */
@@ -41,16 +38,15 @@ public class BlockState {
 	}
 
 	public Point getTl() {
-		return tl;//
+		return tl;
 	}
 
 
 	public Point getBr() {
-		return br;//no this?
+		return br;
 	}
 	
 	/**
-	 * 
 	 * @post | result !=null
 	 * @creates | result
 	 */
@@ -62,7 +58,7 @@ public class BlockState {
 	}
 	
 	/**
-	 * 
+	 * @post | result >= 0
 	 * @creates | result
 	 */
 	
@@ -71,6 +67,8 @@ public class BlockState {
 		int length = br.getX()-tl.getX();
 		return width*length;
 	}
+	
+
 }
 
 

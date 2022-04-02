@@ -7,8 +7,8 @@ package breakout;
  * @invar | getVelocity() !=null
  * @invar | getTl() !=null
  * @invar | getBr() !=null
- * @invar | getSize() == (int) Math.round((Math.PI*(getRadius())*(getRadius())))
- * @invar | getRadius() == (getBr().getY()-getTl().getY())/2
+ * @invar | getSize() >= 0
+ * @invar | getRadius() >= 0
  */
 
 public class BallState {
@@ -40,13 +40,9 @@ public class BallState {
 	 * @post | getTl() == tl
 	 * @post | getBr() == br
 	 * @post | getVelocity() == velocity
-	 * @throws IllegalArgumentEception
-	 *   | tl == null || br == null || velocity == null
 	 */
 	public BallState(Point tl, Point br, Vector velocity) {
-		if(tl == null || br == null || velocity == null){
-			throw new IllegalArgumentException("tl,br,and velocity should not be null");
-		}
+
 		this.tl = tl;
 		this.br = br;
 		this.velocity = velocity;
@@ -59,12 +55,12 @@ public class BallState {
 	 */
 	public Point getCenter() {
 		Point center = new Point((tl.getX()+br.getX())/2,(tl.getY()+br.getY())/2);
-		return center; // no this?
+		return center; 
 	}
 	
 	
 	public Vector getVelocity() {
-		return velocity;//no this?
+		return velocity;
 	}
 	
 
@@ -77,6 +73,7 @@ public class BallState {
 	}
 
 	/**
+	 * @post | result >= 0
 	 * @create | result 
 	 */
 	
@@ -85,12 +82,15 @@ public class BallState {
 	}
 
 	/**
+	 * @post | result >= 0
 	 * @create | result
 	 */
 	public int getRadius() {
 		int radius = (br.getY()-tl.getY())/2;
 		return radius;
 	}
+	
+	
 
 
 

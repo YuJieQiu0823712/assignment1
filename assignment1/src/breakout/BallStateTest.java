@@ -21,6 +21,8 @@ class BallStateTest {
 		assertEquals(3,myBallState.getSize());
 		assertEquals(1,myBallState.getRadius());
 		
+		
+		
 	}
 
 }

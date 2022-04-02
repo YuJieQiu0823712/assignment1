@@ -21,6 +21,7 @@ public class GameMap {
 		BlockState block = new BlockState(blockTL,blockBR);
 		return block;
 	}
+	
 	private static PaddleState createPaddle(Point topleft) {
 		Vector size = new Vector(WIDTH/BLOCK_COLUMNS/2,HEIGHT/BLOCK_LINES/2);
 		Point center = topleft.plus(size);
@@ -28,6 +29,7 @@ public class GameMap {
 		return new PaddleState(topleft,new Point(center.getX(),center.getY()-(center.getY()-topleft.getY())/2),0);
 		
 	}
+	
 	private static BallState createBall(Point topleft) {
 		Vector centerD = new Vector(WIDTH/BLOCK_COLUMNS/2,HEIGHT/BLOCK_LINES/2);
 		Point center = topleft.plus(centerD);

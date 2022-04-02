@@ -14,34 +14,24 @@ public class PaddleState {
 	/**
 	 * Representation invariants:
 	 * 
-//	 * @invar | tl.getX() <= br.getX()
-//	 * @invar | tl.getY() <= br.getY() //?
 	 * @invar | tl != null
      * @invar | br != null
 	 */
 	private final Point tl;
 	private final Point br;
-	private final int velocity;
+	private int velocity;
+
 
 	/**
 	 * 
 	 * @pre | tl != null
 	 * @pre | br != null
-	 * 
 	 * @post | getTl() == tl
 	 * @post | getBr() == br
-	 * @post | getVelocity() == velocity //add
-	 * @throws IllegalArgumentEception //add
-	 *   | tl == null || br == null 
+	 * @post | getVelocity() == velocity 
 	 */
 	
-
-
-
 	public PaddleState(Point tl, Point br,int velocity) {
-		 if(tl == null || br == null ){
-				throw new IllegalArgumentException("tl,br,and velocity should not be null");
-			}
 		this.tl = tl;
 		this.br = br;
 		this.velocity = velocity;
@@ -69,7 +59,7 @@ public class PaddleState {
 	}
 	
 	/**
-	 * 
+	 * @post | result >= 0
 	 * @creates | result
 	 */
 	
@@ -78,6 +68,7 @@ public class PaddleState {
 		int length = br.getX()-tl.getX();
 		return width*length;
 	}
+	
 
 
 }
