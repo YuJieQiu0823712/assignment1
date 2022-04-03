@@ -353,7 +353,7 @@ public class BreakoutState {
 
 			//Check whether any balls hit the bottom of the field, in which case they must be removed from the game.
 			if (ball.getBr().getY()>=GameMap.getHeight()) {
-				removeball =true;
+				removeball = true;
 			}
 
 
@@ -421,10 +421,14 @@ public class BreakoutState {
 						}
 						if(ballreflectX&&!ballreflectY) {
 							//Deal with the vibration when the ball is squeezed by the paddle and the wall
-							if (ball.getCenter().getX()<= BOUNDARY&&ball.getCenter().getX()>=BOUNDARY-(ballRX-ballLX) 
+							if (ball.getCenter().getX()<= BOUNDARY&&ball.getCenter().getX()>=BOUNDARY-(ballRX-ballLX)
+																									// (ballRX-ballLX)/2?
 									|| ball.getCenter().getX() <= ballRX-ballLX&&ball.getCenter().getX() >=0) {
+								                               //(ballRX-ballLX)/2?
 								newvelocity = new Vector(0,Math.abs(newvelocity.getY()));
 								if(ball.getCenter().getX()>=rectangle.getPosition().getX()) {
+									// ballTl.getX() <= rectangle.getBr().getX() ?
+									// ball is squeezed by paddle 
 									newballTl = new Point(BOUNDARY-(ballRX-ballLX),ballTY);
 									newballBr = new Point(BOUNDARY,ballBY);
 								}
@@ -437,13 +441,13 @@ public class BreakoutState {
 								newballTl = newballTl.plus(new Vector(paddle.getVelocity()*6/5,0));
 								newballBr = newballBr.plus(new Vector(paddle.getVelocity()*6/5,0));
 								
-								if (newvelocity.getX()*paddle.getVelocity()>0) {
+								if (newvelocity.getX()*paddle.getVelocity()>0) { //same direction: ball paddle
 								newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()*6/5,0));	
 								}
-								else {
+								else {                         
 									newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()*6/5-2*newvelocity.getX(),0));
-								}
-							}					
+								}                                                //opposite direction: ball paddle 
+							}					                                 // x:negative?
 						}
 					}
 				}
@@ -528,9 +532,9 @@ public class BreakoutState {
 		int ballsqueezed=0;
 		for (BallState ball : balls) {
 			if(paddle.getTl().getX() <= (ball.getBr().getX()-ball.getTl().getX()) 
-					&& paddle.getTl().getY()<=ball.getBr().getY() 
-					&& paddle.getBr().getY()>=ball.getTl().getY()) {
-			ballsqueezed=1;
+					&& paddle.getTl().getY()<=ball.getBr().getY()  // red?
+					&& paddle.getBr().getY()>=ball.getTl().getY()) { // red?
+			ballsqueezed=1; // red?
 		}			
 
 		if (paddle.getTl().getX() >= 0&&ballsqueezed==0) {
@@ -542,10 +546,12 @@ public class BreakoutState {
 		}
 		
 	}
-
+	
+// https://stackoverflow.com/questions/1834621/what-should-i-write-in-my-javadoc-class-and-method-comments
 	/**
-	 * @post If getBlock().length == 0, return true,otherwise return false
-	 *   | getBlocks().length == 0 && getBalls().length>0 ? (boolean)true : (boolean)false
+	 * @return | getBlocks().length == 0 && getBalls().length>0 ? true : false
+//	 * @post If getBlock().length == 0, return true,otherwise return false
+//	 *   | getBlocks().length == 0 && getBalls().length>0 ? true : false
 //     *   | result == true ? getBlocks().length == 0 && getBalls().length>0 : false
 	 */
 	public boolean isWon() {
@@ -554,11 +560,13 @@ public class BreakoutState {
 		} else {
 			return false;
 		}
+		 
 	}
 
 	/**
-	 * @post If getBalls().length == 0, return true,otherwise return false
-	 *   | getBalls().length == 0 ?  true :  false
+	 * * @return | getBlocks().length == 0 && getBalls().length>0 ? true : false
+//	 * @post If getBalls().length == 0, return true,otherwise return false
+//	 *   | getBalls().length == 0 ?  true : false
 	 */
 	public boolean isDead() {
 		if(balls.length == 0){
