@@ -1,14 +1,18 @@
 package breakout;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+
+import stringClass.String;
 
 class BreakoutStateTest {
 
@@ -20,8 +24,14 @@ class BreakoutStateTest {
 		Vector myBallVelocity = new Vector(5,7);
 		BallState myBall = new BallState(myBallTl, myBallBr, myBallVelocity);
 		
+//		Point myBallTl11 = new Point(33,33);
+//		Point myBallBr11 = new Point(55,55);
+//		Vector myBallVelocity11 = new Vector(5,7);
+//		BallState myBall11 = new BallState(myBallTl11, myBallBr11, myBallVelocity11);
+		
 		BallState[] myBalls = new BallState[] {myBall};
-				
+//		BallState[] myBalls11 = new BallState[] {myBall,myBall11};
+		
 		// block
 		Point myBlockTl1 = new Point(0,0);
 		Point myBlockBr1 = new Point(2,1);
@@ -147,11 +157,36 @@ class BreakoutStateTest {
 //		[6] isWon
 		assertEquals(1,myBreakoutState.getBalls().length);
 		assertEquals(2,myBreakoutState.getBlocks().length);
-//		assertFalse(myBreakoutState.isWon());
-		System.out.println(myBreakoutState.isWon());
+		
+		assertFalse(myBreakoutState.isWon());
+//		assertSame(myBreakoutState.isWon(),false);
+//		assertEquals(false,myBreakoutState.isWon());
+//		System.out.println(myBreakoutState.isWon());
 		
 //		[7] isDead
-//		assertEquals(1,myBreakoutState.getBalls().length);
+		
+        // new ball7
+		Point myBallTl7 = new Point(GameMap.getWidth()/2-2,GameMap.getHeight()-1-2);
+		Point myBallBr7 = new Point(GameMap.getWidth()/2,GameMap.getHeight()-1);
+		Vector myBallVelocity7 = new Vector(0,4);
+		BallState myBall7 = new BallState(myBallTl7, myBallBr7, myBallVelocity7);
+		                                     //tl(24998,29997) br(25000,29999) velocity(0,4)
+		BallState myNewBall7 = new BallState(myBallTl7.plus(myBallVelocity7), myBallBr7.plus(myBallVelocity7), myBall7.getVelocity().mirrorOver(new Vector(0,-1)));
+		                                    //tl(24998,30001) br(25000,30003) velocity(0,-4)
+		BallState[] myNewBalls7 = new BallState[] {myNewBall7} ;
+		
+//		BallState[] EMPTY = new BallState[] {};
+
+//		BreakoutState myBreakoutState7 = new BreakoutState(EMPTY,myBlocks,myBottomRight, myPaddle);
+//		assertEquals(0,myBreakoutState7.getBalls().length);
+
+		
+//		ArrayList<BallState> newballs = new ArrayList<BallState>();
+//		if(myNewBall7.getBr().getY()<GameMap.getHeight()) {
+//			myNewBalls7.
+//		}
+//		BallState[] myNewBalls7 = new BallState[] {myNewBall7};
+		
 //		assertFalse(myBreakoutState.isDead());
 		
 		

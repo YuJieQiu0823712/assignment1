@@ -545,7 +545,7 @@ public class BreakoutState {
 
 	/**
 	 * @post If getBlock().length == 0, return true,otherwise return false
-	 *   | getBlocks().length == 0 && getBalls().length>0 ? true : false
+	 *   | getBlocks().length == 0 && getBalls().length>0 ? (boolean)true : (boolean)false
 //     *   | result == true ? getBlocks().length == 0 && getBalls().length>0 : false
 	 */
 	public boolean isWon() {
