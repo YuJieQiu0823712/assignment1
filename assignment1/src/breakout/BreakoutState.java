@@ -53,10 +53,10 @@ public class BreakoutState {
 	 * @post | Arrays.equals(getBlocks(),blocks) 
 	 * @post | getBottomRight().equals(bottomRight)
 	 * @post | !(getPaddle().equals(paddle))
-     * @post some element in the balls equals ball.
-	 *   | Arrays.stream(balls,0,balls.length - 1).allMatch(e -> e != null) 
- 	 * @post some element in the blocks equals block.
-     *   | Arrays.stream(blocks,0,blocks.length - 1).allMatch(e -> e != null)
+     * @post all elements in the balls not equals null.
+	 *   | Arrays.stream(balls,0,balls.length).allMatch(e -> e != null) // change to "balls.length"
+ 	 * @post all elements in the blocks not equals null.
+     *   | Arrays.stream(blocks,0,blocks.length).allMatch(e -> e != null) // change to "blocks.length"
 	 * @throws IllegalArgumentException
 	 *   | balls == null | blocks == null | paddle == null | bottomRight == null
 	 * @throw IllegalArgumentException
@@ -557,8 +557,8 @@ public class BreakoutState {
 	}
 
 	/**
-	 * @post If getBlock().length == 0, return true,otherwise return false
-	 *   | getBalls().length == 0 ? true : false
+	 * @post If getBalls().length == 0, return true,otherwise return false
+	 *   | getBalls().length == 0 ?  true :  false
 	 */
 	public boolean isDead() {
 		if(balls.length == 0){
