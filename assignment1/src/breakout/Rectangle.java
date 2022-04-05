@@ -1,10 +1,21 @@
 package breakout;
 
+/**
+ * 
+// * @invar | 0<=getTl().getX() && getTl().getX()<=GameMap.getWidth()-(getBr().getX()-getTl().getX())
+// * @invar | getTl().getX()<=getBr().getX() && getBr().getX()<=GameMap.getWidth()
+ */
+
+
 public abstract class Rectangle {
+	
 	
 	private final Point tl;
 	private final Point br;
-	
+	/**
+//	* @post | 0 <= tl.getX() 
+//	* @post | tl.getX() <= br.getX() && br.getX() <= GameMap.getWidth()
+	*/
 	public Rectangle(Point tl, Point br) {
 		this.tl = tl;
 		this.br = br;

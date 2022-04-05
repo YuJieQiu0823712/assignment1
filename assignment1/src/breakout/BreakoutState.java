@@ -304,6 +304,7 @@ public class BreakoutState {
 	public void tick(int paddleDir) {
 
 		PaddleState newpaddle = new PaddleState(paddle.getTl(),paddle.getBr(),paddleDir*PADDLE_VELOCITY);
+//	  ?	PaddleState newpaddle = new PaddleState(new Point(paddle.getTl().getX()+paddleDir*PADDLE_VELOCITY,paddle.getTl().getY()),new Point(paddle.getBr().getX()+paddleDir*PADDLE_VELOCITY,paddle.getBr().getY()),paddleDir*PADDLE_VELOCITY);
 		paddle = newpaddle;
 
 		ArrayList<BallState> newballs = new ArrayList<BallState>();
@@ -377,7 +378,7 @@ public class BreakoutState {
 						ballreflectX=true;
 					}
 					//If the ball hit the top of the paddle or the top and bottom of the blocks
-					// else if?
+					
 					if (rectangleTY <= ballBY && rectangleTY >= ball.getCenter().getY() 
 							|| rectangleBY <= ballBY && rectangleBY >= ballTY && rectangle instanceof BlockState) {//?paddle
 						ballreflectY=true;
@@ -423,16 +424,16 @@ public class BreakoutState {
 						}
 						if(ballreflectX&&!ballreflectY) {
 							
-							//  if(ballsqueezed = 1) ?
+							
 							
 							//Deal with the vibration when the ball is squeezed by the paddle and the wall
 							if (ball.getCenter().getX()<= BOUNDARY&&ball.getCenter().getX()>=BOUNDARY-(ballRX-ballLX)
-																									// (ballRX-ballLX)/2?
+																									
 									|| ball.getCenter().getX() <= ballRX-ballLX&&ball.getCenter().getX() >=0) {
-								                               //(ballRX-ballLX)/2?
+								                               
 								newvelocity = new Vector(0,Math.abs(newvelocity.getY()));
 								if(ball.getCenter().getX()>=rectangle.getPosition().getX()) {
-									// ballTl.getX() <= rectangle.getBr().getX() ?
+									
 									// ball is squeezed by paddle 
 									newballTl = new Point(BOUNDARY-(ballRX-ballLX),ballTY);
 									newballBr = new Point(BOUNDARY,ballBY);
@@ -442,17 +443,26 @@ public class BreakoutState {
 									newballBr = new Point(ballRX-ballLX,ballBY);
 								}
 							}
-							else{
+							else{  // [1]if ball fall down (velocity(0,6)) to touch paddle (paddle don't move (velocity(0,0)), ball will stop
 								newballTl = newballTl.plus(new Vector(paddle.getVelocity()*6/5,0));
-								newballBr = newballBr.plus(new Vector(paddle.getVelocity()*6/5,0));
+								//? newballTl = newballTl.plus(new Vector(ball.getVelocity().getX()+paddle.getVelocity()/5,ball.getVelocity().getY())); //working, solved
+								
+								 newballBr = newballBr.plus(new Vector(paddle.getVelocity()*6/5,0));
+								//? newballBr = newballBr.plus(new Vector(ball.getVelocity().getX()+paddle.getVelocity()/5,ball.getVelocity().getY())); //working, solved
 								
 								if (newvelocity.getX()*paddle.getVelocity()>0) { //same direction: ball paddle
-								newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()*6/5,0));	
-								}
-								else {                         
+								//? if (newvelocity.getX()*paddle.getVelocity()>=0) { // not working // not yet solved[1] about new ball velocity
+									
+									newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()*6/5,0));	
+								
+								}//? else if(newvelocity.getX()==0) {   // not working
+								 //          newvelocity = newvelocity.mirrorOver(Vector.DOWN);
+								 //  }
+								else {                                            //opposite direction: ball paddle 
 									newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()*6/5-2*newvelocity.getX(),0));
-								}                                                //opposite direction: ball paddle 
-							}					                                 // x:negative?
+									
+								}                                               
+							}					                                
 						
 						}
 					}
