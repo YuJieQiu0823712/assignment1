@@ -42,6 +42,7 @@ public class BreakoutState {
 	private BlockState[] blocks;
 	private PaddleState paddle;
 	private Point bottomRight;
+	private Point[] blockstl; //add
 	private static final int BOUNDARY = GameMap.getWidth();
 	private static final int PADDLE_VELOCITY = 100;
 	
@@ -376,8 +377,9 @@ public class BreakoutState {
 						ballreflectX=true;
 					}
 					//If the ball hit the top of the paddle or the top and bottom of the blocks
+					// else if?
 					if (rectangleTY <= ballBY && rectangleTY >= ball.getCenter().getY() 
-							|| rectangleBY <= ballBY && rectangleBY >= ballTY && rectangle instanceof BlockState) {
+							|| rectangleBY <= ballBY && rectangleBY >= ballTY && rectangle instanceof BlockState) {//?paddle
 						ballreflectY=true;
 					}
 					//Deal with the reflection on edges
@@ -397,7 +399,7 @@ public class BreakoutState {
 
 					//Renew paddle
 					if (rectangle instanceof PaddleState) {
-						if(ballreflectY&&!ballreflectX) {
+						if(ballreflectY&&!ballreflectX) { //ball touch paddle top
 							newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5,-2*newvelocity.getY()));
 						}
 						if(ballreflectY&&ballreflectX) {
@@ -420,6 +422,9 @@ public class BreakoutState {
 
 						}
 						if(ballreflectX&&!ballreflectY) {
+							
+							//  if(ballsqueezed = 1) ?
+							
 							//Deal with the vibration when the ball is squeezed by the paddle and the wall
 							if (ball.getCenter().getX()<= BOUNDARY&&ball.getCenter().getX()>=BOUNDARY-(ballRX-ballLX)
 																									// (ballRX-ballLX)/2?
@@ -448,6 +453,7 @@ public class BreakoutState {
 									newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()*6/5-2*newvelocity.getX(),0));
 								}                                                //opposite direction: ball paddle 
 							}					                                 // x:negative?
+						
 						}
 					}
 				}
@@ -489,6 +495,10 @@ public class BreakoutState {
 			newblocks.toArray(newblocksarray);
 			blocks = newblocksarray;
 
+			Point[] newblockstlarray = new Point[blockstl.size()]; // add
+			blockstl.toArray(newblockstlarray);
+			this.blockstl = newblockstlarray;
+			
 		}
 
 
