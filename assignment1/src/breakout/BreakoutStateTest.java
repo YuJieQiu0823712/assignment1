@@ -453,7 +453,6 @@ class BreakoutStateTest {
 		assertEquals(myBreakoutState2_3_c.getPaddle().getVelocity(),0); 
 
 		
-
 //	    [3_1_a] After ball touch one block bottom
 		// new Ball3_a
 		Point myBallTl3_1_a = new Point(0,2);
