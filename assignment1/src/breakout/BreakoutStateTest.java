@@ -417,16 +417,16 @@ class BreakoutStateTest {
 		PaddleState myNewPaddle2_3_c = new PaddleState(new Point(750,23000),new Point (3750,24000), 0);
 		
 		// new Ball2_3_c
-		Point myBallTl2_3_c = new Point(50-5,23300);
-		Point myBallBr2_3_c = new Point(750-5,24000);
-		Vector myBallVelocity2_3_c = new Vector(5,0);
+		Point myBallTl2_3_c = new Point(50-5,23300-7);
+		Point myBallBr2_3_c = new Point(750-5,24000-7);
+		Vector myBallVelocity2_3_c = new Vector(5,7);
 		BallState myBall2_3_c = new BallState(myBallTl2_3_c, myBallBr2_3_c, myBallVelocity2_3_c);
-		BallState myNewBall2_3_c = new BallState(new Point(0,23300),new Point(700,24000), new Vector(0,0));
+		BallState myNewBall2_3_c = new BallState(new Point(0,23300),new Point(700,24000), new Vector(0,7));
 		
 //		Error, because the moment of ball touch paddle, the ball automatically become squeezed by paddle at the moment
 //		see BreakoutState line 300
 //		it's strange, because I only tick once
-//		BallState myNewBall2_3_c = new BallState(new Point(50,23300),new Point(750,24000), new Vector(-25,0));
+//		BallState myNewBall2_3_c = new BallState(new Point(50,23300),new Point(750,24000), new Vector(-25,7));
 		
 		BallState[] myBalls2_3_c = new BallState[] {myBall2_3_c};	
 		BallState[] myNewBalls2_3_c = new BallState[] {myNewBall2_3_c};			
@@ -442,7 +442,7 @@ class BreakoutStateTest {
 		assertTrue(myBreakoutState2_3_c.getBalls()[0].getVelocity().equals(myNewBreakoutState2_3_c.getBalls()[0].getVelocity())); 
 		assertEquals(myBreakoutState2_3_c.getBalls()[0].getTl(),new Point(0,23300));
 		assertEquals(myBreakoutState2_3_c.getBalls()[0].getBr(),new Point(700,24000));
-		assertEquals(myBreakoutState2_3_c.getBalls()[0].getVelocity(),new Vector(0,0)); 
+		assertEquals(myBreakoutState2_3_c.getBalls()[0].getVelocity(),new Vector(0,7)); 
 		
 		assertTrue(myBreakoutState2_3_c.getPaddle().getTl().equals(myNewBreakoutState2_3_c.getPaddle().getTl())); 
 		assertTrue(myBreakoutState2_3_c.getPaddle().getBr().equals(myNewBreakoutState2_3_c.getPaddle().getBr())); 
