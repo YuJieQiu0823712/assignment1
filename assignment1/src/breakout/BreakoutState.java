@@ -43,7 +43,7 @@ public class BreakoutState {
 	private PaddleState paddle;
 	private Point bottomRight;
 	private static final int BOUNDARY = GameMap.getWidth();
-	private static final int PADDLE_VELOCITY = 100;
+	private static final int PADDLE_VELOCITY = 10;
 	
 	
 	/**
@@ -157,21 +157,27 @@ public class BreakoutState {
 
 
 	public void tick(int paddleDir) {
+		
+		
 
 		PaddleState newpaddle = new PaddleState(paddle.getTl(),paddle.getBr(),PADDLE_VELOCITY*paddleDir);
-			if(paddle.getTl().getX()<=0&&paddleDir==-1||paddle.getBr().getX()>=BOUNDARY&&paddleDir==1) {
+		if(paddle.getTl().getX()<=0&&paddleDir==-1||paddle.getBr().getX()>=BOUNDARY&&paddleDir==1) {
 			newpaddle = new PaddleState(paddle.getTl(),paddle.getBr(),0);
 		}
 		paddle = newpaddle;
+		
+
+		
 		ArrayList<BallState> newballs = new ArrayList<BallState>();
 
 		for (BallState ball: balls) {
 			//Move all balls one step forward according to their current velocity.
 			BallState newball = new BallState(ball.getTl().plus(ball.getVelocity()),ball.getBr().plus(ball.getVelocity()),ball.getVelocity());
 			ball=newball;
-		
-	
-		
+
+
+
+
 			List <Rectangle> rectangleList = new ArrayList<Rectangle>();
 			//Add blocks first
 			for (BlockState block: blocks) {
@@ -179,7 +185,7 @@ public class BreakoutState {
 			}
 			//then add paddle
 			rectangleList.add(paddle);
-			
+
 			boolean removeball = false;
 			boolean ballreflectX = false;
 			boolean ballreflectY = false;
@@ -199,7 +205,7 @@ public class BreakoutState {
 			// Check whether any balls hit the walls on the left, right and top side of the game area, in which case they must bounce back.
 			// ball touch GameMapRight 
 			int x = 0;
-			if (ball.getBr().getX() >= GameMap.getWidth()) {
+			if (ball.getBr().getX() >= BOUNDARY) {
 				x = newballBr.getX()-BOUNDARY;
 				newballTl = newballTl.plus(new Vector(-2*x,0));
 				newballBr = newballBr.plus(new Vector(-2*x,0));
@@ -215,13 +221,11 @@ public class BreakoutState {
 
 			// ball touch GameMapTop
 			if (ball.getTl().getY() <= 0) {			
-				
 				int y = newballTl.getY();
 				newballTl = newballTl.plus(new Vector(0,-2*y));
 				newballBr = newballBr.plus(new Vector(0,-2*y));
 				newvelocity = newvelocity.mirrorOver(Vector.DOWN);
-				
-				
+
 			}
 
 			//Check whether any balls hit the bottom of the field, in which case they must be removed from the game.
@@ -238,10 +242,11 @@ public class BreakoutState {
 				int rectangleBY=rectangle.getBr().getY();
 				int rectangleLX=rectangle.getTl().getX();
 				int rectangleRX=rectangle.getBr().getX();
+				
 
 				//If the ball hits the rectangles
 				if (ballLX <= rectangleRX && ballRX >= rectangleLX &&rectangleTY <= ballBY && rectangleBY >= ballTY) {
-					
+
 					Vector balltorectanglevector= new Vector((rectangleRX+rectangleLX)/2-ball.getCenter().getX(),(rectangleBY+rectangleTY)/2-ball.getCenter().getY());
 					//If the ball hit two sides of the rectangle
 					if (ballLX <= rectangleRX && ballRX >= rectangleRX 
@@ -262,7 +267,7 @@ public class BreakoutState {
 							&& ballreflectX && ballreflectY&&rectangle instanceof BlockState) {
 						ballreflectY=false;
 					}
-					
+
 					//Renew blocks
 					if (rectangle instanceof BlockState) {
 						blockstl.add(rectangle.getTl());
@@ -270,72 +275,46 @@ public class BreakoutState {
 
 					//Renew paddle
 					if (rectangle instanceof PaddleState) {
+						int rectangle_length = rectangle.getBr().getX()-rectangle.getTl().getX();
 						if(ballreflectY&&!ballreflectX) {
-							newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5,-2*newvelocity.getY()));			
+							newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5,-2*newvelocity.getY()));
+
 						}
 						if(ballreflectY&&ballreflectX) {
 							newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5-2*newvelocity.getX(),-2*newvelocity.getY()));
 						}
 						if(ballreflectX&&!ballreflectY) {
-							//Deal with the vibration when the ball is squeezed by the paddle and the wall
+							//Deal with the situation when the ball is squeezed by the paddle and the wall
 							if (ballRX>= BOUNDARY||ballLX<=0) {
-
+								//if (ballLX>=rectangleRX) {
+								//right wall
 								if(ball.getCenter().getX()>=rectangle.getPosition().getX()) {
+									//newpaddle = new PaddleState(paddle.getTl().minus(new Vector(paddle.getVelocity(),0)),paddle.getBr().minus(new Vector(paddle.getVelocity(),0)),0);
+									
 
-									//no limit paddle location?
-									newpaddle = new PaddleState(paddle.getTl().minus(new Vector(paddle.getVelocity(),0)),paddle.getBr().minus(new Vector(paddle.getVelocity(),0)),0);
 									newballTl = new Point(BOUNDARY-(ballRX-ballLX),ballTY);
 									newballBr = new Point(BOUNDARY,ballBY);
 									newvelocity = new Vector(0,ball.getVelocity().getY());
+									newpaddle = new PaddleState(new Point(newballTl.getX()-rectangle_length,paddle.getTl().getY()),new Point(newballTl.getX(),paddle.getBr().getY()),0);
+
 								}  
-								else {
-									newpaddle = new PaddleState(paddle.getTl().minus(new Vector(paddle.getVelocity(),0)),paddle.getBr().minus(new Vector(paddle.getVelocity(),0)),0);
+								else { //left wall
+									//newpaddle = new PaddleState(paddle.getTl().minus(new Vector(paddle.getVelocity(),0)),paddle.getBr().minus(new Vector(paddle.getVelocity(),0)),0);
+
 									newballTl = new Point(0,ballTY);
 									newballBr = new Point(ballRX-ballLX,ballBY);
 									newvelocity = new Vector(0,ball.getVelocity().getY());
+									newpaddle = new PaddleState(new Point(newballBr.getX(),paddle.getTl().getY()),new Point(newballBr.getX()+rectangle_length,paddle.getBr().getY()),0);
+
 								}
 								paddle = newpaddle;
 							}
-							else{	
-								if (newvelocity.getX()*paddle.getVelocity()>0) { 
-								newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5,0));
-								
-								
+							else{			
+								if (newvelocity.getX()*paddle.getVelocity()>0) {
+									newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5,0));	
 								}
 								else {
 									newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5-2*newvelocity.getX(),0));
-									
-//									if(newballTl.getX()<rectangle.getBr().getX() ) {//add
-//										newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5-2*newvelocity.getX(),0));
-//										
-//										
-//										Point newpaddleTl = paddle.getTl();
-//										Point newpaddleBr = paddle.getBr();
-//										int newpaddlevelocity = paddle.getVelocity();
-//										
-//										newpaddleTl = new Point((newballBr.getX()-(newpaddleBr.getX()-newpaddleTl.getX())),paddle.getTl().getY());
-//										newpaddleBr = new Point(newballBr.getX(),paddle.getBr().getY());
-//										newpaddlevelocity = 0;
-//										newpaddle = new PaddleState(newpaddleTl,newpaddleBr,newpaddlevelocity);
-//									}
-//									if(newballBr.getX()>rectangle.getTl().getX()) { //add
-//										newvelocity = newvelocity.plus(new Vector(paddle.getVelocity()/5-2*newvelocity.getX(),0));
-//										
-//										
-//										Point newpaddleTl = paddle.getTl();
-//										Point newpaddleBr = paddle.getBr();
-//										int newpaddlevelocity = paddle.getVelocity();
-//										
-//										newpaddleTl = new Point(newballBr.getX(),paddle.getTl().getY());
-//										newpaddleBr = new Point(newballBr.getX()+(newpaddleBr.getX()-newpaddleTl.getX()),paddle.getBr().getY());
-//										newpaddlevelocity = 0;
-//										newpaddle = new PaddleState(newpaddleTl,newpaddleBr,newpaddlevelocity);
-//
-//										
-//									}
-									
-									
-
 								}
 							}					
 						}
@@ -378,16 +357,13 @@ public class BreakoutState {
 			BlockState[] newblocksarray = new BlockState[newblocks.size()];
 			newblocks.toArray(newblocksarray);
 			blocks = newblocksarray;
-			
+
 
 		}
-
 
 		BallState[] newballsarray = new BallState[newballs.size()];
 		newballs.toArray(newballsarray);
 		balls = newballsarray;
-		
-
 
 	}
 
