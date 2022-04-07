@@ -360,7 +360,6 @@ public class BreakoutState {
 		balls = newballsarray;
 		
 
-
 	}
 
 
