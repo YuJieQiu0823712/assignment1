@@ -8,28 +8,28 @@ public class GameMap {
 	private static final int INIT_BALL_DIAMETER = 700;
 	private static final int HEIGHT = 30000;
 	private static final int WIDTH = 50000;
-	private static int BLOCK_LINES = 9;
+	private static int BLOCK_LINES = 9; 
 	private static int BLOCK_COLUMNS = 10;
-	private static final Vector INIT_BALL_VELOCITY = new Vector(25,35);
+	private static final Vector INIT_BALL_VELOCITY = new Vector(-25,35);
 
 	private static BlockState createBlock(Point topleft) {
 		Vector marginBL = new Vector(20,20);
 		Vector size = new Vector(WIDTH/BLOCK_COLUMNS-70,HEIGHT/BLOCK_LINES-70);
 		Point blockTL = topleft.plus(marginBL);
 		Point blockBR = blockTL.plus(size);
-		// TODO: return a block with given top left (`blockTL`) and bottom right (`blockBR`) Point
+		// TODO: return a block with given top left (`blockTL`) and bottom right (`blockBR`) Point		
 		BlockState block = new BlockState(blockTL,blockBR);
 		return block;
+		
 	}
-	
 	private static PaddleState createPaddle(Point topleft) {
 		Vector size = new Vector(WIDTH/BLOCK_COLUMNS/2,HEIGHT/BLOCK_LINES/2);
 		Point center = topleft.plus(size);
 		// TODO: return a paddle with given center
 //		return new PaddleState(topleft,new Point(center.getX(),center.getY()-(center.getY()-topleft.getY())/2),0);
 		return new PaddleState(topleft,center.plus(size),0);
+		
 	}
-	
 	private static BallState createBall(Point topleft) {
 		Vector centerD = new Vector(WIDTH/BLOCK_COLUMNS/2,HEIGHT/BLOCK_LINES/2);
 		Point center = topleft.plus(centerD);

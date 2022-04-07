@@ -360,7 +360,7 @@ class BreakoutStateTest {
 		BreakoutState myBreakoutState2_2_a = new BreakoutState(myBalls2_2_a,myBlocks,myBottomRight,myPaddle2_2_a);
 		myBreakoutState2_2_a.tick(paddleDir0);
 		BreakoutState myNewBreakoutState2_2_a = new BreakoutState(myNewBalls2_2_a,myBlocks,myBottomRight,myNewPaddle2_2_a);
-
+		
 		assertTrue(myBreakoutState2_2_a.getBalls()[0].getTl().equals(myNewBreakoutState2_2_a.getBalls()[0].getTl()));
 		assertTrue(myBreakoutState2_2_a.getBalls()[0].getBr().equals(myNewBreakoutState2_2_a.getBalls()[0].getBr()));
 		assertTrue(myBreakoutState2_2_a.getBalls()[0].getVelocity().equals(myNewBreakoutState2_2_a.getBalls()[0].getVelocity())); 
@@ -410,52 +410,85 @@ class BreakoutStateTest {
 //     [2_2_c]  After ball touch left of paddle (ball right, paddle left) (squeezed) 
 		
 		// new paddle2_2_c
-		Point myPaddleTl2_2_c = new Point(750+100,23000);
-		Point myPaddleBr2_2_c = new Point(3750+100,24000);
+		Point myPaddleTl2_2_c = new Point(700+100,23000);
+		Point myPaddleBr2_2_c = new Point(3700+100,24000);
 		PaddleState myPaddle2_2_c = new PaddleState(myPaddleTl2_2_c, myPaddleBr2_2_c, paddleDir_1*PADDLE_VELOCITY);
-		PaddleState myNewPaddle2_2_c = new PaddleState(new Point(750,23000),new Point (3750,24000), 0);
+		PaddleState myNewPaddle2_2_c = new PaddleState(new Point(700,23000),new Point (3700,24000), paddleDir0*PADDLE_VELOCITY);
+//		PaddleState myNewNewPaddle2_2_c = new PaddleState(new Point(700,23000),new Point (3700,24000), paddleDir0*PADDLE_VELOCITY);
 		
 		// new Ball2_3_c
-		Point myBallTl2_2_c = new Point(50-5,23300-7);
-		Point myBallBr2_2_c = new Point(750-5,24000-7);
-		Vector myBallVelocity2_2_c = new Vector(5,7);
+		Point myBallTl2_2_c = new Point(0+5,23000-7);
+		Point myBallBr2_2_c = new Point(700+5,23700-7);
+		Vector myBallVelocity2_2_c = new Vector(-5,7);
 		BallState myBall2_2_c = new BallState(myBallTl2_2_c, myBallBr2_2_c, myBallVelocity2_2_c);
-		BallState myNewBall2_2_c = new BallState(new Point(0,23300),new Point(700,24000), new Vector(0,7));
-		
-//		Error, because the moment of ball touch paddle, the ball automatically become squeezed by paddle at the moment
-//		see BreakoutState line 300
-//		it's strange, because I only tick once
-//		BallState myNewBall2_3_c = new BallState(new Point(50,23300),new Point(750,24000), new Vector(-25,7));
+		BallState myNewBall2_2_c = new BallState(new Point(0,23000),new Point(700,23700), new Vector(0,7));
+//		BallState myNewNewBall2_2_c = new BallState(new Point(70,23007),new Point(770,23707), new Vector(120,7));
 		
 		BallState[] myBalls2_2_c = new BallState[] {myBall2_2_c};	
-		BallState[] myNewBalls2_2_c = new BallState[] {myNewBall2_2_c};			
+		BallState[] myNewBalls2_2_c = new BallState[] {myNewBall2_2_c};
+//		BallState[] myNewNewBalls2_2_c = new BallState[] {myNewNewBall2_2_c};
 
 		// new BreakoutState2_2_c
 		BreakoutState myBreakoutState2_2_c = new BreakoutState(myBalls2_2_c,myBlocks,myBottomRight,myPaddle2_2_c);
 		myBreakoutState2_2_c.movePaddleLeft();
 		myBreakoutState2_2_c.tick(paddleDir_1);
+		
+		System.out.println(myBreakoutState2_2_c.getPaddle().getTl());
+		System.out.println(myBreakoutState2_2_c.getPaddle().getBr());
+		System.out.println(myBreakoutState2_2_c.getPaddle().getVelocity());
 		BreakoutState myNewBreakoutState2_2_c = new BreakoutState(myNewBalls2_2_c,myBlocks,myBottomRight,myNewPaddle2_2_c);
-
+		System.out.println(myNewBreakoutState2_2_c.getPaddle().getTl());
+		System.out.println(myNewBreakoutState2_2_c.getPaddle().getBr());
+		System.out.println(myNewBreakoutState2_2_c.getPaddle().getVelocity());
+		
 		assertTrue(myBreakoutState2_2_c.getBalls()[0].getTl().equals(myNewBreakoutState2_2_c.getBalls()[0].getTl()));
 		assertTrue(myBreakoutState2_2_c.getBalls()[0].getBr().equals(myNewBreakoutState2_2_c.getBalls()[0].getBr()));
 		assertTrue(myBreakoutState2_2_c.getBalls()[0].getVelocity().equals(myNewBreakoutState2_2_c.getBalls()[0].getVelocity())); 
-		assertEquals(myBreakoutState2_2_c.getBalls()[0].getTl(),new Point(0,23300));
-		assertEquals(myBreakoutState2_2_c.getBalls()[0].getBr(),new Point(700,24000));
+		assertEquals(myBreakoutState2_2_c.getBalls()[0].getTl(),new Point(0,23000));
+		assertEquals(myBreakoutState2_2_c.getBalls()[0].getBr(),new Point(700,23700));
 		assertEquals(myBreakoutState2_2_c.getBalls()[0].getVelocity(),new Vector(0,7)); 
 		
 		assertTrue(myBreakoutState2_2_c.getPaddle().getTl().equals(myNewBreakoutState2_2_c.getPaddle().getTl())); 
 		assertTrue(myBreakoutState2_2_c.getPaddle().getBr().equals(myNewBreakoutState2_2_c.getPaddle().getBr())); 
-		
 		assertEquals(myBreakoutState2_2_c.getPaddle().getVelocity(),myNewBreakoutState2_2_c.getPaddle().getVelocity()); 
 		assertEquals(myBreakoutState2_2_c.getPaddle().getTl(),new Point(750,23000));
 		assertEquals(myBreakoutState2_2_c.getPaddle().getBr(),new Point(3750,24000));
-		assertEquals(myBreakoutState2_2_c.getPaddle().getVelocity(),0); 
+		assertEquals(myBreakoutState2_2_c.getPaddle().getVelocity(),-100);
 
+////		tick2 (squeezed)
+//		myBreakoutState2_2_c.movePaddleLeft();
+//		myBreakoutState2_2_c.tick(paddleDir_1);
+//
+////		System.out.println(myBreakoutState2_2_c.getBalls()[0].getTl());
+////		System.out.println(myBreakoutState2_2_c.getBalls()[0].getBr());
+////		System.out.println(myBreakoutState2_2_c.getBalls()[0].getVelocity());
+//		System.out.println(myBreakoutState2_2_c.getPaddle().getTl());
+//		System.out.println(myBreakoutState2_2_c.getPaddle().getBr());
+//		System.out.println(myBreakoutState2_2_c.getPaddle().getVelocity());
+//		BreakoutState myNewNewBreakoutState2_2_c = new BreakoutState(myNewBalls2_2_c,myBlocks,myBottomRight,myNewNewPaddle2_2_c);
+////		System.out.println(myNewNewBreakoutState2_2_c.getBalls()[0].getTl());
+////		System.out.println(myNewNewBreakoutState2_2_c.getBalls()[0].getBr());
+////		System.out.println(myNewNewBreakoutState2_2_c.getBalls()[0].getVelocity());
+//		System.out.println(myNewNewBreakoutState2_2_c.getPaddle().getTl());
+//		System.out.println(myNewNewBreakoutState2_2_c.getPaddle().getBr());
+//		System.out.println(myNewNewBreakoutState2_2_c.getPaddle().getVelocity());
+//		
+//		assertTrue(myBreakoutState2_2_c.getBalls()[0].getTl().equals(myNewNewBreakoutState2_2_c.getBalls()[0].getTl()));
+//		assertTrue(myBreakoutState2_2_c.getBalls()[0].getBr().equals(myNewNewBreakoutState2_2_c.getBalls()[0].getBr()));
+//		assertTrue(myBreakoutState2_2_c.getBalls()[0].getVelocity().equals(myNewNewBreakoutState2_2_c.getBalls()[0].getVelocity())); 
+//		assertEquals(myBreakoutState2_2_c.getBalls()[0].getTl(),new Point(70,23007));
+//		assertEquals(myBreakoutState2_2_c.getBalls()[0].getBr(),new Point(770,23707));
+//		assertEquals(myBreakoutState2_2_c.getBalls()[0].getVelocity(),new Vector(120,7)); 
+//		
+//		assertTrue(myBreakoutState2_2_c.getPaddle().getTl().equals(myNewNewBreakoutState2_2_c.getPaddle().getTl())); 
+//		assertTrue(myBreakoutState2_2_c.getPaddle().getBr().equals(myNewNewBreakoutState2_2_c.getPaddle().getBr())); 
+//		assertEquals(myBreakoutState2_2_c.getPaddle().getVelocity(),myNewNewBreakoutState2_2_c.getPaddle().getVelocity()); 
+//		assertEquals(myBreakoutState2_2_c.getPaddle().getTl(),new Point(700,23000));
+//		assertEquals(myBreakoutState2_2_c.getPaddle().getBr(),new Point(3700,24000));
+//		assertEquals(myBreakoutState2_2_c.getPaddle().getVelocity(),0);
 		
 		
-		
-		
-//	    [2_3_a] After ball touch right of paddle (ball left, paddle doesn't move) // just change name
+//	    [2_3_a] After ball touch right of paddle (ball left, paddle doesn't move) OK
 
 		// paddle2_3_a
 		Point myPaddleTl2_3_a = new Point(25000,23000);
@@ -464,16 +497,16 @@ class BreakoutStateTest {
 		PaddleState myNewPaddle2_3_a = new PaddleState(new Point(25000,23000),new Point (28000,24000), paddleDir0*PADDLE_VELOCITY);
 		
 		// new Ball2_3_a
-		Point myBallTl2_3_a = new Point(24300-5,23300);
-		Point myBallBr2_3_a = new Point(25000-5,24000);
-		Vector myBallVelocity2_3_a = new Vector(5,0);
+		Point myBallTl2_3_a = new Point(25000+5,23300);
+		Point myBallBr2_3_a = new Point(25700+5,24000);
+		Vector myBallVelocity2_3_a = new Vector(-5,0);
 		BallState myBall2_3_a = new BallState(myBallTl2_3_a, myBallBr2_3_a, myBallVelocity2_3_a);
-		BallState myNewBall2_3_a = new BallState(new Point(24300,23300),new Point (25000,24000), new Vector(-5,0));	 	
+		BallState myNewBall2_3_a = new BallState(new Point(25000,23300),new Point (25700,24000), new Vector(5,0));	 	
 
 		BallState[] myBalls2_3_a = new BallState[] {myBall2_3_a};		
 		BallState[] myNewBalls2_3_a = new BallState[] {myNewBall2_3_a};		
 
-		// new BreakoutState2_2
+		// new BreakoutState2_3_a
 		BreakoutState myBreakoutState2_3_a = new BreakoutState(myBalls2_3_a,myBlocks,myBottomRight,myPaddle2_3_a);
 		myBreakoutState2_3_a.tick(paddleDir0);
 		BreakoutState myNewBreakoutState2_3_a = new BreakoutState(myNewBalls2_3_a,myBlocks,myBottomRight,myNewPaddle2_3_a);
@@ -481,97 +514,88 @@ class BreakoutStateTest {
 		assertTrue(myBreakoutState2_3_a.getBalls()[0].getTl().equals(myNewBreakoutState2_3_a.getBalls()[0].getTl()));
 		assertTrue(myBreakoutState2_3_a.getBalls()[0].getBr().equals(myNewBreakoutState2_3_a.getBalls()[0].getBr()));
 		assertTrue(myBreakoutState2_3_a.getBalls()[0].getVelocity().equals(myNewBreakoutState2_3_a.getBalls()[0].getVelocity())); 
-		assertEquals(myBreakoutState2_3_a.getBalls()[0].getTl(),new Point(24300,23300)); 
-		assertEquals(myBreakoutState2_3_a.getBalls()[0].getBr(),new Point(25000,24000));
-		assertEquals(myBreakoutState2_3_a.getBalls()[0].getVelocity(),new Vector(-5,0));
+		assertEquals(myBreakoutState2_3_a.getBalls()[0].getTl(),new Point(25000,23300)); 
+		assertEquals(myBreakoutState2_3_a.getBalls()[0].getBr(),new Point(25700,24000));
+		assertEquals(myBreakoutState2_3_a.getBalls()[0].getVelocity(),new Vector(5,0));
 
-//      [2_3_b]  After ball touch right of paddle (ball left, paddle right) (no squeezed) //just change name
+//      [2_3_b]  After ball touch right of paddle (ball left, paddle right) (no squeezed) OK
 		
 		// new paddle2_3_b
-		Point myPaddleTl2_3_b = new Point(25000+100,23000);
-		Point myPaddleBr2_3_b = new Point(28000+100,24000);
-		PaddleState myPaddle2_3_b = new PaddleState(myPaddleTl2_3_b, myPaddleBr2_3_b, paddleDir_1*PADDLE_VELOCITY);
-		PaddleState myNewPaddle2_3_b = new PaddleState(new Point(25000,23000),new Point (28000,24000), paddleDir_1*PADDLE_VELOCITY);
+		Point myPaddleTl2_3_b = new Point(25000-100,23000);
+		Point myPaddleBr2_3_b = new Point(28000-100,24000);
+		PaddleState myPaddle2_3_b = new PaddleState(myPaddleTl2_3_b, myPaddleBr2_3_b, paddleDir1*PADDLE_VELOCITY);
+		PaddleState myNewPaddle2_3_b = new PaddleState(new Point(25000,23000),new Point (28000,24000), paddleDir1*PADDLE_VELOCITY);
 		
 		// new Ball2_3_b
-		Point myBallTl2_3_b = new Point(24300-5,23300);
-		Point myBallBr2_3_b = new Point(25000-5,24000);
-		Vector myBallVelocity2_3_b = new Vector(5,0);
+		Point myBallTl2_3_b = new Point(25000+6,23300);
+		Point myBallBr2_3_b = new Point(25700+6,24000);
+		Vector myBallVelocity2_3_b = new Vector(-6,0);
 		BallState myBall2_3_b = new BallState(myBallTl2_3_b, myBallBr2_3_b, myBallVelocity2_3_b);
-		BallState myNewBall2_3_b = new BallState(new Point(24300,23300),new Point(25000,24000), new Vector(-25,0));
+		BallState myNewBall2_3_b = new BallState(new Point(25000,23300),new Point(25700,24000), new Vector(26,0));
 			 		                               
 		BallState[] myBalls2_3_b = new BallState[] {myBall2_3_b};	
 		BallState[] myNewBalls2_3_b = new BallState[] {myNewBall2_3_b};		
 		
 		// new BreakoutState2_2_b
 		BreakoutState myBreakoutState2_3_b = new BreakoutState(myBalls2_3_b,myBlocks,myBottomRight,myPaddle2_3_b);
-		myBreakoutState2_3_b.movePaddleLeft();
-		myBreakoutState2_3_b.tick(paddleDir_1);
+		myBreakoutState2_3_b.movePaddleRight();
+		myBreakoutState2_3_b.tick(paddleDir1);
 		BreakoutState myNewBreakoutState2_3_b = new BreakoutState(myNewBalls2_3_b,myBlocks,myBottomRight,myNewPaddle2_3_b);
 
 		assertTrue(myBreakoutState2_3_b.getBalls()[0].getTl().equals(myNewBreakoutState2_3_b.getBalls()[0].getTl()));
 		assertTrue(myBreakoutState2_3_b.getBalls()[0].getBr().equals(myNewBreakoutState2_3_b.getBalls()[0].getBr()));
-		assertTrue(myBreakoutState2_3_b.getBalls()[0].getVelocity().equals(myNewBreakoutState2_3_b.getBalls()[0].getVelocity())); 
-		assertEquals(myBreakoutState2_3_b.getBalls()[0].getTl(),new Point(24300,23300));
-		assertEquals(myBreakoutState2_3_b.getBalls()[0].getBr(),new Point(25000,24000));
-		assertEquals(myBreakoutState2_3_b.getBalls()[0].getVelocity(),new Vector(-25,0)); 
+		assertTrue(myBreakoutState2_3_b.getBalls()[0].getVelocity().equals(myNewBreakoutState2_3_b.getBalls()[0].getVelocity()));
+		assertEquals(myBreakoutState2_3_b.getBalls()[0].getTl(),new Point(25000,23300));
+		assertEquals(myBreakoutState2_3_b.getBalls()[0].getBr(),new Point(25700,24000));
+		assertEquals(myBreakoutState2_3_b.getBalls()[0].getVelocity(),new Vector(26,0)); 
 		
 		assertTrue(myBreakoutState2_3_b.getPaddle().getTl().equals(myNewBreakoutState2_3_b.getPaddle().getTl()));
 		assertTrue(myBreakoutState2_3_b.getPaddle().getBr().equals(myNewBreakoutState2_3_b.getPaddle().getBr())); 
 		assertEquals(myBreakoutState2_3_b.getPaddle().getVelocity(),myNewBreakoutState2_3_b.getPaddle().getVelocity()); 
 		assertEquals(myBreakoutState2_3_b.getPaddle().getTl(),new Point(25000,23000));
 		assertEquals(myBreakoutState2_3_b.getPaddle().getBr(),new Point(28000,24000));
-		assertEquals(myBreakoutState2_3_b.getPaddle().getVelocity(),-100); 
+		assertEquals(myBreakoutState2_3_b.getPaddle().getVelocity(),100); 
 
 		
-//     [2_3_c]  After ball touch right of paddle (ball left, paddle right) (squeezed) //just change name
+//     [2_3_c]  After ball touch right of paddle (ball left, paddle right) (squeezed) OK
 		
 		// new paddle2_3_c
-		Point myPaddleTl2_3_c = new Point(750+100,23000);
-		Point myPaddleBr2_3_c = new Point(3750+100,24000);
-		PaddleState myPaddle2_3_c = new PaddleState(myPaddleTl2_3_c, myPaddleBr2_3_c, paddleDir_1*PADDLE_VELOCITY);
-		PaddleState myNewPaddle2_3_c = new PaddleState(new Point(750,23000),new Point (3750,24000), 0);
+		Point myPaddleTl2_3_c = new Point(46950-100,23000);
+		Point myPaddleBr2_3_c = new Point(49950-100,24000);
+		PaddleState myPaddle2_3_c = new PaddleState(myPaddleTl2_3_c, myPaddleBr2_3_c, paddleDir1*PADDLE_VELOCITY);
+		PaddleState myNewPaddle2_3_c = new PaddleState(new Point(46950,23000),new Point (49950,24000), paddleDir1*PADDLE_VELOCITY);
 		
 		// new Ball2_3_c
-		Point myBallTl2_3_c = new Point(50-5,23300-7);
-		Point myBallBr2_3_c = new Point(750-5,24000-7);
-		Vector myBallVelocity2_3_c = new Vector(5,7);
+		Point myBallTl2_3_c = new Point(49250+5,23300-7);
+		Point myBallBr2_3_c = new Point(49950+5,24000-7);
+		Vector myBallVelocity2_3_c = new Vector(-5,7);
 		BallState myBall2_3_c = new BallState(myBallTl2_3_c, myBallBr2_3_c, myBallVelocity2_3_c);
-		BallState myNewBall2_3_c = new BallState(new Point(0,23300),new Point(700,24000), new Vector(0,7));
-		
-//		Error, because the moment of ball touch paddle, the ball automatically become squeezed by paddle at the moment
-//		see BreakoutState line 300
-//		it's strange, because I only tick once
-//		BallState myNewBall2_3_c = new BallState(new Point(50,23300),new Point(750,24000), new Vector(-25,7));
+		BallState myNewBall2_3_c = new BallState(new Point(49250,23300),new Point(49950,24000), new Vector(25,7));
 		
 		BallState[] myBalls2_3_c = new BallState[] {myBall2_3_c};	
 		BallState[] myNewBalls2_3_c = new BallState[] {myNewBall2_3_c};			
 
 		// new BreakoutState2_2_c
 		BreakoutState myBreakoutState2_3_c = new BreakoutState(myBalls2_3_c,myBlocks,myBottomRight,myPaddle2_3_c);
-		myBreakoutState2_3_c.movePaddleLeft();
-		myBreakoutState2_3_c.tick(paddleDir_1);
+		myBreakoutState2_3_c.movePaddleRight();
+		myBreakoutState2_3_c.tick(paddleDir1);
 		BreakoutState myNewBreakoutState2_3_c = new BreakoutState(myNewBalls2_3_c,myBlocks,myBottomRight,myNewPaddle2_3_c);
 
 		assertTrue(myBreakoutState2_3_c.getBalls()[0].getTl().equals(myNewBreakoutState2_3_c.getBalls()[0].getTl()));
 		assertTrue(myBreakoutState2_3_c.getBalls()[0].getBr().equals(myNewBreakoutState2_3_c.getBalls()[0].getBr()));
 		assertTrue(myBreakoutState2_3_c.getBalls()[0].getVelocity().equals(myNewBreakoutState2_3_c.getBalls()[0].getVelocity())); 
-		assertEquals(myBreakoutState2_3_c.getBalls()[0].getTl(),new Point(0,23300));
-		assertEquals(myBreakoutState2_3_c.getBalls()[0].getBr(),new Point(700,24000));
-		assertEquals(myBreakoutState2_3_c.getBalls()[0].getVelocity(),new Vector(0,7)); 
+		assertEquals(myBreakoutState2_3_c.getBalls()[0].getTl(),new Point(49250,23300));
+		assertEquals(myBreakoutState2_3_c.getBalls()[0].getBr(),new Point(49950,24000));
+		assertEquals(myBreakoutState2_3_c.getBalls()[0].getVelocity(),new Vector(25,7)); 
 		
 		assertTrue(myBreakoutState2_3_c.getPaddle().getTl().equals(myNewBreakoutState2_3_c.getPaddle().getTl())); 
 		assertTrue(myBreakoutState2_3_c.getPaddle().getBr().equals(myNewBreakoutState2_3_c.getPaddle().getBr())); 
-		
 		assertEquals(myBreakoutState2_3_c.getPaddle().getVelocity(),myNewBreakoutState2_3_c.getPaddle().getVelocity()); 
-		assertEquals(myBreakoutState2_3_c.getPaddle().getTl(),new Point(750,23000));
-		assertEquals(myBreakoutState2_3_c.getPaddle().getBr(),new Point(3750,24000));
-		assertEquals(myBreakoutState2_3_c.getPaddle().getVelocity(),0); 
+		assertEquals(myBreakoutState2_3_c.getPaddle().getTl(),new Point(46950,23000));
+		assertEquals(myBreakoutState2_3_c.getPaddle().getBr(),new Point(49950,24000));
+		assertEquals(myBreakoutState2_3_c.getPaddle().getVelocity(),100); 
 
-		
-		
-		
-		
+
 		
 //	    [3_1_a] After ball touch one block bottom OK
 		
