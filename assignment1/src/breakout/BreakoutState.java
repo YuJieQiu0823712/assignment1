@@ -280,9 +280,8 @@ public class BreakoutState {
 							//Deal with the vibration when the ball is squeezed by the paddle and the wall
 							if (ballRX>= BOUNDARY||ballLX<=0) {
 
-								if(ball.getCenter().getX()>=rectangle.getPosition().getX()){
-//										&& ball.getBr().getX()>rectangle.getBr().getX()
-//										&& ball.getTl().getX()>rectangle.getTl().getX()) { // not working
+								if(ball.getCenter().getX()>=rectangle.getPosition().getX()) {
+
 									//no limit paddle location?
 									newpaddle = new PaddleState(paddle.getTl().minus(new Vector(paddle.getVelocity(),0)),paddle.getBr().minus(new Vector(paddle.getVelocity(),0)),0);
 									newballTl = new Point(BOUNDARY-(ballRX-ballLX),ballTY);
