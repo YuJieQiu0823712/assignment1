@@ -52,7 +52,7 @@ public class BreakoutState {
 	 * @post | Arrays.equals(getBalls(),balls)
 	 * @post | Arrays.equals(getBlocks(),blocks) 
 	 * @post | getBottomRight().equals(bottomRight)
-	 * @post | !(getPaddle().equals(paddle))
+	 * @post | (getPaddle().equals(paddle))
      * @post all elements in the balls not equals null.
 	 *   | Arrays.stream(balls,0,balls.length).allMatch(e -> e != null) // change to "balls.length"
  	 * @post all elements in the blocks not equals null.
