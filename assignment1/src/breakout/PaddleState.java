@@ -2,75 +2,65 @@ package breakout;
 /**
  * 
  * Abstract state invariants:
-// * @invar | getTl() != null
-// * @invar | getBr() != null
  * 
- *@immutable
+ * @invar The velocity of the paddle is a multiple of 10.
+ * | getVelocity() % 10 == 0
+ * 
+ * @immutable
  */
 
 public class PaddleState extends Rectangle{
 	// TODO: implement
-	// contractual programming
-//	/**
-//	 * Representation invariants:
-//	 * 
-//	 * @invar | tl != null
-//     * @invar | br != null
-//	 */
-//	private final Point tl;
-//	private final Point br;
-	private int velocity;
-
+	
+	/**
+	 * @invar The velocity of the paddle is a multiple of 10.
+	 * | velocity % 10 == 0
+	 */
+	
+	private final int velocity;
 
 	/**
 	 * 
-	 * @pre | tl != null
-	 * @pre | br != null
-//	 * @post | getTl() == tl
-//	 * @post | getBr() == br
-	 * @post | getVelocity() == velocity 
+	 * @pre The given top left point is not null.
+	 * | tl != null
+	 * @pre The given bottom right point is not null.
+	 * | br != null
+	 * @pre The given left edge is not greater than the given right edge.
+	 * | tl.getX() <= br.getX()
+	 * @pre The given top is not greater than the given bottom. 
+	 * | tl.getY() <= br.getY()
+	 * @pre The velocity of the paddle is a multiple of 10.
+	 * | velocity % 10 == 0
+	 * 	
+	 * 
+	 * @post The given top left point is not null.
+	 * | getTl() != null
+	 * @post The given bottom right point is not null.
+	 * | getBr() != null
+	 * @post The top left point of the rectangle equals the given top left point.
+	 * | getTl().equals(tl)
+	 * @post The bottom right point of the rectangle equals the given bottom right point.
+	 * | getBr().equals(br)
+	 * @post The given left edge is not greater than the given right edge. 
+	 * | getTl().getX() <= getBr().getX()
+	 * @post The given top is not greater than the given bottom. 
+	 * | getTl().getY() <= getBr().getY()
+	 * @post The velocity of the paddle is a multiple of 10.
+	 * | getVelocity() % 10 == 0
+	 * 
 	 */
-	
+
+
 	public PaddleState(Point tl, Point br,int velocity) {
-//		this.tl = tl;
-//		this.br = br;
 		super(tl,br);
 		this.velocity = velocity;
 	}
 
-//	public Point getTl() {
-//		return tl;
-//	}
-//
-//	public Point getBr() {
-//		return br;
-//	}
-	
+
 	public int getVelocity() {
 		return velocity;
 	}
-
-//	/**
-//	 * @post | result != null
-//	 * @create | result
-//	 */
-//	
-//	public Point getPosition() {
-//		Point center = new Point((tl.getX()+br.getX())/2,(tl.getY()+br.getY())/2);
-//		return center;
-//	}
-//	
-//	/**
-//	 * @post | result >= 0
-//	 * @creates | result
-//	 */
-//	
-//	public int getSize() {
-//		int width = br.getY()-tl.getY();
-//		int length = br.getX()-tl.getX();
-//		return width*length;
-//	}
 	
-
+	
 
 }

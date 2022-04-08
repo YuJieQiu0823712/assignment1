@@ -35,7 +35,7 @@ public class GameView extends JPanel {
 		ballTimer = new Timer(ballMoveDelayMillis, actionEvent -> {
 			moveBalls();
 		});
-		ballTimer.start();
+		ballTimer.start(); 
 	}
 	
 	/**

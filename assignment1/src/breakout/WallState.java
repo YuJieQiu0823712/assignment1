@@ -15,10 +15,7 @@ package breakout;
  * @immutable
  */
 
-
-public class BlockState extends Rectangle{
-	// TODO: implement
-
+public class WallState extends Rectangle{
 	
 	/**
 	 * 
@@ -46,13 +43,9 @@ public class BlockState extends Rectangle{
 	 * | getTl().getY() <= getBr().getY()
 	 * 
 	 */
- public BlockState(Point tl, Point br) {
+	
+	public WallState(Point tl, Point br) {
 		super(tl, br);
 	}
-
-
-
-
-
 
 }
